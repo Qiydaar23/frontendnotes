@@ -26,7 +26,7 @@ const NotePage = () => {
 
     const CreateNote = async () => {
         try {
-            const response = await fetch(`/api/notes/create/`,{
+            const response = await fetch(`/api/notes/`,{
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
