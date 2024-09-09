@@ -11,6 +11,7 @@ const NotePage = () => {
     useEffect(() => {
         const getNote = async () => {
             try {
+                if (noteId === 'new') return
                 const response = await fetch(`/api/notes/${noteId}`);
                 const data = await response.json();
                 setNote(data);
@@ -21,6 +22,23 @@ const NotePage = () => {
 
         getNote();
     }, [noteId]);
+
+
+    const CreateNote = async () => {
+        try {
+            const response = await fetch(`/api/notes/create/`,{
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(note)
+            });
+            const data = await response.json();
+            setNote(data);
+        } catch (error) {
+            console.error('Failed to fetch the note:', error);
+        }
+    };
 
 
         const updateNote = async () => {
@@ -41,7 +59,14 @@ const NotePage = () => {
 
         const handleSubmit = (e) => {
             e.preventDefault()
-            updateNote()
+            if(noteId !== 'new' && !note.body){
+                deleteNote()
+            }else if(noteId !== 'new'){
+                updateNote()
+            }else if (noteId === 'new' && note.body !== null){
+                CreateNote()
+            }
+            // updateNote()
             Navigate("/")
         }
 
@@ -62,7 +87,8 @@ const NotePage = () => {
                <Link to="/">
                <h1 onClick={handleSubmit}>(Back)</h1>
                </Link>
-               <button onClick={deleteNote}>Delete</button>
+               {noteId !== 'new' ? (<button onClick={deleteNote}>Delete</button>) : (<button onClick={handleSubmit}>Done</button>) }
+               {/* <button onClick={deleteNote}>Delete</button> */}
 
             </div>
              <textarea onChange={(e) =>{setNote({...note, 'body':e.target.value })}}  defaultValue={note?.body}></textarea>
