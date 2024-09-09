@@ -59,7 +59,7 @@ const NotePage = () => {
 
         const handleSubmit = (e) => {
             e.preventDefault()
-            if(noteId !== 'new' && !note.body){
+            if(noteId !== 'new' && note.body === ''){
                 deleteNote()
             }else if(noteId !== 'new'){
                 updateNote()
@@ -69,6 +69,11 @@ const NotePage = () => {
             // updateNote()
             Navigate("/")
         }
+
+        // const handlechange = (value) =>{
+        //     setNote(note => ({...note, value}))
+        // }
+
 
         const deleteNote = async () => {
             fetch(`/api/notes/${noteId}/delete/`, {
@@ -91,7 +96,7 @@ const NotePage = () => {
                {/* <button onClick={deleteNote}>Delete</button> */}
 
             </div>
-             <textarea onChange={(e) =>{setNote({...note, 'body':e.target.value })}}  defaultValue={note?.body}></textarea>
+             <textarea onChange={(e) =>{setNote({...note, 'body':e.target.value })}}  value={note?.body}></textarea>
         </div>
 
     );
