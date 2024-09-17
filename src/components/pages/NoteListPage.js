@@ -7,17 +7,24 @@ const NoteListPage = () => {
 
     const [notes, setNotes] = useState([])
 
+    const baseUrl = process.env.REACT_APP_API_URL;
 
-
-    const getNotes = async () => {
-       const response = await fetch('/api/notes')
-       const data = await response.json()
-       setNotes(data)
-    }
+    // const getNotes = async () => {
+    //    const response = await fetch(`${baseUrl}/api/notes`)
+    //    const data = await response.json()
+    //    setNotes(data)
+    // }
 
     useEffect(()=>{
-        getNotes()
-    },[])
+        // getNotes()
+        const getNotes = async () => {
+
+          const response = await fetch(`${baseUrl}/api/notes`)
+          const data = await response.json()
+          setNotes(data)
+       }
+       getNotes()
+    },[baseUrl])
 
   return (
     <div className='notes'>

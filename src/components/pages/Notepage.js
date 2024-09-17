@@ -7,12 +7,15 @@ const NotePage = () => {
     const [note, setNote] = useState(null);
 
     const Navigate = useNavigate()
+    const baseUrl = process.env.REACT_APP_API_URL;
+    // debugger
 
     useEffect(() => {
         const getNote = async () => {
             try {
+                // debugger
                 if (noteId === 'new') return
-                const response = await fetch(`/api/notes/${noteId}`);
+                const response = await fetch(`${baseUrl}/api/notes/${noteId}`);
                 const data = await response.json();
                 setNote(data);
             } catch (error) {
@@ -21,16 +24,16 @@ const NotePage = () => {
         };
 
         getNote();
-    }, [noteId]);
+    }, [baseUrl,noteId]);
 
 
     const CreateNote = async () => {
         try {
-
-            const response = await fetch(`/api/notes/create/`,{
+            // debugger
+            const response = await fetch(`${baseUrl}/api/notes/create/`,{
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body:JSON.stringify(note)
             });
@@ -44,7 +47,7 @@ const NotePage = () => {
 
         const updateNote = async () => {
             try {
-                const response = await fetch(`/api/notes/${noteId}/update/`,{
+                const response = await fetch(`${baseUrl}/api/notes/${noteId}/update/`,{
                     method: "PUT",
                     headers: {
                         'Content-Type': 'application/json'
@@ -77,7 +80,7 @@ const NotePage = () => {
 
 
         const deleteNote = async () => {
-            fetch(`/api/notes/${noteId}/delete/`, {
+            fetch(`${baseUrl}/api/notes/${noteId}/delete/`, {
                 method:'DELETE',
                 'headers': {
                     'Content-Type': 'application/json'
