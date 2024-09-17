@@ -15,7 +15,7 @@ const NotePage = () => {
             try {
                 // debugger
                 if (noteId === 'new') return
-                const response = await fetch(`${baseUrl}/api/notes/${noteId}`);
+                const response = await fetch(`${baseUrl}/api/notes/${noteId}/`);
                 const data = await response.json();
                 setNote(data);
             } catch (error) {
