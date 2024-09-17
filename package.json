@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "proxy":"http://127.0.0.1:8000",
+  "proxy":"https://backendnotes-qiydaar-4b56dd3b16f2.herokuapp.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
